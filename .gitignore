@@ -1,0 +1,92 @@
+# ---------------------------------------------------------------
+# PRIVATE FINANCIAL DATA & DOCUMENTS — NEVER COMMIT
+# ---------------------------------------------------------------
+statements/
+statement_bundle.json
+statement_bundle.csv
+*_bundle.json
+*_bundle.csv
+*_report.md
+amex_boost_report.md
+
+# Financial statement & spreadsheet formats
+*.pdf
+*.csv
+*.xlsx
+*.xls
+*.ofx
+*.qfx
+*.qif
+
+# Allow synthetic mock CSV for CLI testing
+!mac_tools/mock_bank.csv
+
+# Local merchant lists & private categorization rules
+scripts/local_merchant_rules.json
+ios_app/BudgetTracker/local_merchants.json
+**/local_merchants.json
+**/local_merchant_rules.json
+
+# ---------------------------------------------------------------
+# LOCAL DATABASES & STATE STORES
+# ---------------------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+*.wal
+*.shm
+
+# ---------------------------------------------------------------
+# ENVIRONMENT & SECRETS
+# ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.mobileprovision
+*.xcconfig
+
+# ---------------------------------------------------------------
+# PYTHON & NODE BUILD ARTIFACTS
+# ---------------------------------------------------------------
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+node_modules/
+dist/
+build/
+tmp/
+
+# ---------------------------------------------------------------
+# XCODE / SWIFT
+# ---------------------------------------------------------------
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+DerivedData/
+.build/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+.swiftpm/
+
+# ---------------------------------------------------------------
+# OS & IDE METADATA
+# ---------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+.idea/
+.vscode/
+GEMINI.md
