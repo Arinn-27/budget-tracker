@@ -249,8 +249,8 @@ struct LogTransactionShortcutIntent: AppIntent {
     )
     static var openAppWhenRun: Bool = false
     
-    @Parameter(title: "Category", description: "Choose from your categories in the app")
-    var category: ShortcutCategoryEntity?
+    @Parameter(title: "Category", description: "Leave blank to choose the category when you run the shortcut")
+    var selectedCategory: ShortcutCategoryEntity?
     
     @Parameter(title: "Date", description: "Choose the transaction date")
     var date: Date?
@@ -281,9 +281,10 @@ struct LogTransactionShortcutIntent: AppIntent {
     @Parameter(title: "Recurring", default: .oneTime)
     var recurring: ShortcutRecurringOption
     
-    // Placing the fields inside the trailing block of Summary renders them as a vertical Form of labeled rows in the Shortcuts app!
+    // Placing all fields inside the trailing block of Summary (and none in the header title) ensures nothing has to be pre-specified before running the shortcut!
     static var parameterSummary: some ParameterSummary {
-        Summary("Transaction Form (\(\.$category))") {
+        Summary("Log Transaction") {
+            \.$selectedCategory
             \.$date
             \.$amount
             \.$account
@@ -298,13 +299,13 @@ struct LogTransactionShortcutIntent: AppIntent {
     func perform() async throws -> some IntentResult & ReturnsValue<Double> & ProvidesDialog {
         let db = DatabaseManager.shared
         
-        // 1. Category (Choose from categories in the app)
+        // 1. Category (Selected when the shortcut runs unless explicitly provided)
         let resolvedCategoryEntity: ShortcutCategoryEntity
-        if let c = category {
+        if let c = selectedCategory {
             resolvedCategoryEntity = c
         } else {
             let appCategories = try await ShortcutCategoryQuery().suggestedEntities()
-            resolvedCategoryEntity = try await $category.requestDisambiguation(
+            resolvedCategoryEntity = try await $selectedCategory.requestDisambiguation(
                 among: appCategories,
                 dialog: "Choose a Category:"
             )

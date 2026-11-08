@@ -2689,6 +2689,7 @@ public class DatabaseManager: ObservableObject {
     }
     
     // MARK: - Category & Budget Management
+    @discardableResult
     public func addCategory(name: String) -> Int? {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
         let lower = trimmed.lowercased()

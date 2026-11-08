@@ -668,7 +668,7 @@ struct HomeTabView: View {
     }
     
     private func stepMoveCategory(id: Int, delta: Int, in currentList: [Category]) {
-        var ids = currentList.map { $0.id }
+        let ids = currentList.map { $0.id }
         guard let idx = ids.firstIndex(of: id) else { return }
         let newIdx = max(0, min(ids.count - 1, idx + delta))
         guard newIdx != idx else { return }
@@ -4336,7 +4336,7 @@ struct ShortcutsGuideSheetView: View {
                     icon: "square.grid.2x2.fill",
                     color: AppleTheme.accentOrange,
                     title: "Category",
-                    subtitle: "Dynamic dropdown of all your BudgetTracker categories (or pass a text variable)."
+                    subtitle: "Prompted dynamically from all your BudgetTracker categories when you run the shortcut (no need to pre-specify)."
                 )
                 Divider().background(Color.white.opacity(0.06)).padding(.leading, 56)
                 shortcutActionRow(

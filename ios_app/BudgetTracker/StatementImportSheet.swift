@@ -594,16 +594,17 @@ public struct StatementImportSheet: View {
         case .success(let urls):
             guard let url = urls.first else { return }
             isProcessingFile = true
+            let database = db
             Task.detached(priority: .userInitiated) {
                 do {
-                    let bundle = try db.parseStatementFile(from: url)
+                    let bundle = try database.parseStatementFile(from: url)
                     await MainActor.run {
                         self.autoSelectMatchingAccount(for: bundle)
                     }
                     let targetAcc = await MainActor.run {
                         self.selectedAccountID.isEmpty ? nil : self.selectedAccountID
                     }
-                    let plan = db.prepareReconciliationPlan(bundle: bundle, targetAccountID: targetAcc)
+                    let plan = database.prepareReconciliationPlan(bundle: bundle, targetAccountID: targetAcc)
                     await MainActor.run {
                         self.reconciliationPlan = plan
                         self.isProcessingFile = false
